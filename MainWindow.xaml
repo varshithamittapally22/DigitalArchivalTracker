@@ -1,0 +1,152 @@
+﻿<Window x:Class="DigitalArchivalTracker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DigitalArchivalTracker"
+        mc:Ignorable="d"
+        Title="Digital Archival Tracker" Height="613" Width="1150">
+    <Grid x:Name="MainGrid" Margin="5, 10, 5, 10">
+        <TabControl x:Name="AIPFixityTab"  >
+            <TabItem Header="Ongoing Preservation">
+                <Grid>
+                    <Grid.ColumnDefinitions >
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="160" />
+                        <ColumnDefinition Width="160" />
+                        <ColumnDefinition Width="120" />
+                        <ColumnDefinition Width="180" />
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="110" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Button x:Name="aipReportSelectionBTN" Grid.Column="0" Grid.Row="0" Width="50" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center" Click="aipReportSelectionBTN_Click" Margin="30,5,35,5" >
+                        <Button.Background>
+                            <ImageBrush ImageSource="Resources/Images/Excel2013FileIcon.png" Stretch="Uniform"  />
+                        </Button.Background>
+                    </Button>
+                    <TextBox x:Name="aipReportPathTF" IsReadOnly="True" Text="AIP Excel Report Location" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="25" Grid.ColumnSpan="4"/>
+                    <Label x:Name="giveCustomSheetNameLBL" Content="Custom sheet name" Height="25" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                    <ComboBox x:Name="sheetNameCB" IsEditable="True" IsReadOnly="True" Height="25" Grid.Column="5" Grid.Row="0" HorizontalAlignment="Right" Width="140" VerticalAlignment="Center" Text="Select sheet" />
+                    <TextBox x:Name="givenSheetNameTB" Height="25" Width="150" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                    <Button x:Name="readAIPReportBTN" Content="Read/Create Table" Width="110" Height="25" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Column="2" Grid.Row="1" Click="readAIPReportBTN_Click" Margin="0,0,0,15" />
+                    <Label x:Name="currentTBLLBL" Content="Current Table:" Height="25" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                    <TextBox x:Name="currentTBL" Height="25" IsReadOnly="True" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Width="130" Grid.ColumnSpan="2"/>
+                    <ComboBox x:Name="existingTableNamesCB" Height="25" Width="150" IsReadOnly="True" IsEditable="True" Text="Select table" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                    <Button x:Name="loadTableBTN" Content="Load Table" Grid.Column="2" Grid.Row="2" Height="25" Width="70" VerticalAlignment="Top" HorizontalAlignment="Left" Click="loadTableBTN_Click" />
+                    <Button x:Name="deleteTableBTN" Content="Delete table" Grid.Column="2" Grid.Row="2" Height="25" Width="80" VerticalAlignment="Top" HorizontalAlignment="Right" Background="Tomato" Click="deleteTableBTN_Click"  />
+                    <Label x:Name="addColLBL" Content="Add Column" Height="25" Grid.Column="4" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Top" />
+                    <TextBox x:Name="addColumnTB" Height="25" Grid.Column="5" Grid.Row="1" Width="140" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                    <Button x:Name="addColumnBTN" Content="Add Column" Height="25" Width="95" Grid.Column="6" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" Click="addColumnBTN_Click" />
+                    <ComboBox x:Name="columnNameDeleteCB" Height="25" Text="Select column" IsEditable="True" IsReadOnly="True" Grid.Column="5" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top" Width="140" />
+                    <Button x:Name="deleteColBTN" Content="Delete Column" Grid.Column="6" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Top" Height="25" Width="95" Click="deleteColBTN_Click" />
+                    <DataGrid x:Name="dgAIP" AutoGenerateColumns="True" 
+                              ColumnWidth="Auto" SelectionMode="Extended" 
+                              SelectionUnit="FullRow"
+                              AlternatingRowBackground="#FFE6E6FA"
+                              Grid.Column="0" Grid.ColumnSpan="10" 
+                              Grid.Row="3" Grid.RowSpan="11"
+                              FrozenColumnCount="2" HorizontalScrollBarVisibility="Auto" />
+                    <Button x:Name="exportCSVBTN" Height="25" Content="Export to CSV" Grid.Column="3" Grid.Row="2" Width="85" HorizontalAlignment="Right" VerticalAlignment="Top" Click="exportCSVBTN_Click" />
+                    <Button x:Name="submitBTN" Content="Save Changes" Grid.Column="4" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top" Height="25" Width="95" Click="submitBTN_Click" Background="LightGreen" />
+                    <!--<Button x:Name="exportLocationFolderBTN" Content="Export Location" Height="25" Width="95" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Top" Click="exportLocationFolderBTN_Click" />
+                    <TextBox x:Name="exportLocationTB" IsReadOnly="True" Text="No location selected" Height="25" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="3" HorizontalAlignment="Stretch" VerticalAlignment="Top"  />
+                    <Button x:Name="exportExcelBTN" Content="Export" Grid.Column="4" Grid.Row="3" Height="25" Width="60" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="15,0,0,0" Click="exportExcelBTN_Click" />-->
+                    
+                </Grid>
+            </TabItem>
+            <TabItem Header="Fixity Overview Tab">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="85" />
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="120" />
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition Width="120" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="45" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Button x:Name="selectFixityReportFolderBTN" Width="60" Height="30" VerticalAlignment="Center" HorizontalAlignment="Stretch" Click="selectFixityReportBTN" >
+                        <Button.Background>
+                            <ImageBrush ImageSource="Resources/Images/Open Folder.png" Stretch="Uniform" />
+                        </Button.Background>
+                    </Button>
+                    <TextBox x:Name="fixityFolferPathTB" IsReadOnly="True" Text="Fixity Folder Location" Height="25" Grid.Column="1" Grid.ColumnSpan="7" VerticalAlignment="Center" />
+                    <TextBox x:Name="totalReportsLBL" IsReadOnly="True" Height="25" Grid.Column="8" Width="60" HorizontalAlignment="Center" VerticalAlignment="Center" Text="0 Files" />
+                    <Button x:Name="parseFixityReportsBTN" Height="25" Width="95" Grid.Column="9" Content="Parse Fixity" HorizontalAlignment="Left" VerticalAlignment="Center" Click="parseFixityReportsBTN_Click" />
+                    <ComboBox x:Name="projectNamesCB" Height="25" IsEditable="True" IsReadOnly="True" Text="Select Project Name" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
+                    <Button x:Name="readFixityReportsBTN" Content="Read Fixity Report" Height="25" Grid.Column="2" Grid.Row="1" Width="105" HorizontalAlignment="Center" VerticalAlignment="Top" Click="readFixityReportsBTN_Click" />
+                    <Button x:Name="clearDataBTN" Content="Clear Data" Grid.Column="4" Height="25" HorizontalAlignment="Left" Width="65" VerticalAlignment="Top" Grid.Row="1" Click="clearDataBTN_Click" />
+                    <Label x:Name="label1" Content="Project Name:" Height="26" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <TextBox x:Name="projectNameTB" Height="25" Text="" Grid.Column="1" Grid.Row="2" IsReadOnly="True" HorizontalAlignment="Stretch" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                    <Label x:Name="label" Content="Total Files:" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="2"/>
+                    <TextBox x:Name="totalFilesTB" Grid.Column="4" Height="25" IsReadOnly="True" Width="50" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                    <Label x:Name="confirmedFilesLBL" Content="Confirmed Files:" Grid.Column="5" VerticalAlignment="Top" Grid.Row="2"/>
+                    <TextBox x:Name="confirmedFilesTB" Height="25" Grid.Column="6" Grid.Row="2" IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50"/>
+                    <Label x:Name="movedOrRenamedFilesLBL" Height="25" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Moved/Renamed Files:"/>
+                    <TextBox x:Name="movedOrRenamedTB" Height="25" Grid.Column="1" HorizontalAlignment="Right" IsReadOnly="True" Width="50" Grid.Row="3" VerticalAlignment="Top"/>
+                    <Label x:Name="newFilesLBL" Content="New Files:" Height="25" Grid.Column="3" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Top" />
+                    <TextBox x:Name="newFilesTB" Height="25" Width="50" IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="4" Grid.Row="3"/>
+                    <Label x:Name="changedFilesLBL" Content="Changed Files:" Height="26" Grid.Column="5" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Top" />
+                    <TextBox x:Name="changedFilesTB" Height="25" Grid.Column="6" Grid.Row="3" IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50"/>
+
+                    <TabControl x:Name="fileListTabControl" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="11" Grid.RowSpan="8">
+                        <TabItem Header="Removed Files">
+                            <DataGrid x:Name="dgRemovedFilesList" IsReadOnly="True" ColumnWidth="Auto" AutoGenerateColumns="True">
+                            </DataGrid>
+                        </TabItem>
+                        <TabItem Header="Changed Files">
+                            <DataGrid x:Name="dgChangedFilesList" IsReadOnly="True" ColumnWidth="Auto" AutoGenerateColumns="True" >
+                            </DataGrid>
+                        </TabItem>
+                        <TabItem Header="New Files">
+                            <DataGrid x:Name="dgNewFilesList" IsReadOnly="True" ColumnWidth="Auto" AutoGenerateColumns="True">
+                            </DataGrid>
+                        </TabItem>
+                        <TabItem Header="Confirmed Files">
+                            <DataGrid x:Name="dgConfirmedFilesList" IsReadOnly="True" ColumnWidth="Auto" AutoGenerateColumns="True">
+                            </DataGrid>
+                        </TabItem>
+                    </TabControl>
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
